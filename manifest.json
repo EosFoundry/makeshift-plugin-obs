@@ -1,0 +1,53 @@
+{
+  "name": "makeshiftctrl-obs",
+  "version": "1.0.0",
+  "functions": [
+    {
+      "identifier": "init",
+      "params": [
+        {
+          "name": "password"
+        },
+        {},
+        {}
+      ],
+      "docString": " TODO: CALIBER you will need to add your websocket address and password here",
+      "async": true,
+      "generator": false
+    },
+    {
+      "identifier": "connect",
+      "params": [
+        {
+          "name": "password"
+        },
+        {},
+        {}
+      ],
+      "docString": "",
+      "async": true,
+      "generator": false
+    },
+    {
+      "identifier": "getState",
+      "params": [],
+      "docString": "",
+      "async": false,
+      "generator": false
+    },
+    {
+      "identifier": "RunObs",
+      "params": [
+        {
+          "name": "functionName"
+        },
+        {
+          "name": "requestField"
+        }
+      ],
+      "docString": "this is a block comment\nit contains, many\nmany\n\nmany\nnewlines",
+      "async": false,
+      "generator": false
+    }
+  ]
+}
