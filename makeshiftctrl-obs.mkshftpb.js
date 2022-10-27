@@ -9351,21 +9351,24 @@ obs.on('error', err => {
 });
 
 
-// here's some indented comments
-// here's a double line comment!
-// TODO: CALIBER you will need to add your websocket address and password here
+/**
+ * Spins up the 
+ * @param {*} password - password field
+ * @param {*} address - IP address that OBS is listening on
+ * @param {*} port - the port
+ */
 async function init(
     password,
     address = new URL('ws://127.0.0.1'),
     port = 4455) {
 
     try { // here's an inline comment
-        const osbUrl = new URL(address);
+        const osbUrl = new URL(address + port.toString());
         const {
             obsWebSocketVersion,
         } = await obs.connect(
-            'ws://192.168.2.101:4455',
-            'Cz9oWxO5t05jiXlI',
+            osbUrl,
+            password,
             {
                 rpcVersion: 1
             });
@@ -9377,45 +9380,20 @@ async function init(
     }
 }
 
-async function connect(password, address = new URL('ws://127.0.0.1'), port = 4455) {
-    try { // here's an inline comment
-        const osbUrl = new URL(address);
-        const {
-            obsWebSocketVersion,
-        } = await obs.connect(
-            'ws://192.168.2.101:4455',
-            'Cz9oWxO5t05jiXlI',
-            {
-                rpcVersion: 1
-            });
-        pluginData.obsWebSocketVersion = obsWebSocketVersion;
-        pluginData.connected = true;
-        log(`Connected to server ${pluginData.obsWebSocketVersion}`);
-    } catch (error) {
-        error('Failed to connect', error.code, error.message);
-    }
-
-}
-
+/**
+ * gets all the 
+ * @returns pluginData
+ */
 function getState() {
     return pluginData
 }
 
-// not recommended
-const toaster = (thingy, thingy2) => {
-    return null
-};
-
-
 /**
- * this is a block comment
- * it contains, many
- * many
-  *
- * many
- * newlines
+ * Directly calls the obs websocket interface
+ * @param {string} functionName 
+ * @param {object} requestField 
  */
-function RunObs(functionName, requestField) {
+function call(functionName, requestField) {
     obs.call(functionName, requestField)
         .then((data) => {
             console.log(JSON.stringify(data));
@@ -9424,30 +9402,4 @@ function RunObs(functionName, requestField) {
         });
 }
 
-
-
-
-
-
-// "Reactions"
-
-obs.on('InputCreated', event => {
-    console.log(`New input: ${event.inputName}`);
-});
-
-obs.on('SceneCreated', event => {
-    console.log(`New scene available: ${event.sceneName}`);
-});
-
-obs.on('CurrentProgramSceneChanged', event => {
-    console.log(`Current scene changed to: ${event.sceneName}`);
-});
-
-obs.on('SceneRemoved', event => {
-    console.log(`Removed scene: ${event.sceneName}`);
-});
-
-
-var makeshiftctrlObs = { toaster };
-
-export { RunObs, connect, makeshiftctrlObs as default, getState, init };
+export { call, getState, init };

@@ -33,9 +33,12 @@ obs.on('error', err => {
 });
 
 
-// here's some indented comments
-// here's a double line comment!
-// TODO: CALIBER you will need to add your websocket address and password here
+/**
+ * Spins up the 
+ * @param {*} password - password field
+ * @param {*} address - IP address that OBS is listening on
+ * @param {*} port - the port
+ */
 export async function init(
     password,
     address = new URL('ws://127.0.0.1'),
@@ -59,10 +62,19 @@ export async function init(
     }
 }
 
+/**
+ * gets all the 
+ * @returns pluginData
+ */
 export function getState() {
     return pluginData
 }
 
+/**
+ * Directly calls the obs websocket interface
+ * @param {string} functionName 
+ * @param {object} requestField 
+ */
 export function call(functionName, requestField) {
     obs.call(functionName, requestField)
         .then((data) => {

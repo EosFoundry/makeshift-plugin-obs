@@ -11,32 +11,19 @@
         {},
         {}
       ],
-      "docString": " TODO: CALIBER you will need to add your websocket address and password here",
-      "async": true,
-      "generator": false
-    },
-    {
-      "identifier": "connect",
-      "params": [
-        {
-          "name": "password"
-        },
-        {},
-        {}
-      ],
-      "docString": "",
+      "docString": "Spins up the \n@param {*} password - password field\n@param {*} address - IP address that OBS is listening on\n@param {*} port - the port",
       "async": true,
       "generator": false
     },
     {
       "identifier": "getState",
       "params": [],
-      "docString": "",
+      "docString": "gets all the \n@returns pluginData",
       "async": false,
       "generator": false
     },
     {
-      "identifier": "RunObs",
+      "identifier": "call",
       "params": [
         {
           "name": "functionName"
@@ -45,7 +32,7 @@
           "name": "requestField"
         }
       ],
-      "docString": "this is a block comment\nit contains, many\nmany\n\nmany\nnewlines",
+      "docString": "Directly calls the obs websocket interface\n@param {string} functionName \n@param {object} requestField",
       "async": false,
       "generator": false
     }
