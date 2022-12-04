@@ -6,7 +6,7 @@ export default {
   input: 'makeshiftctrl-obs.js',
   output: {
     file: './makeshiftctrl-obs.mkshftpb.js',
-    format: 'module'
+    format: 'cjs'
   },
   plugins: [
     nodeResolve({

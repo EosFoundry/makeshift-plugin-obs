@@ -1,5 +1,5 @@
 {
-  "name": "makeshiftctrl-obs",
+  "name": "@eos-makeshift/ctrl-plugin-obs",
   "version": "1.0.0",
   "functions": [
     {

@@ -1,15 +1,33 @@
-import require$$0 from 'tty';
-import require$$1 from 'util';
-import require$$0$3 from 'events';
-import require$$1$1 from 'https';
-import require$$2 from 'http';
-import require$$3 from 'net';
-import require$$4 from 'tls';
-import require$$5 from 'crypto';
-import require$$0$2 from 'stream';
-import require$$7 from 'url';
-import require$$0$1 from 'zlib';
-import 'node:url';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var require$$0 = require('tty');
+var require$$1 = require('util');
+var require$$0$3 = require('events');
+var require$$1$1 = require('https');
+var require$$2 = require('http');
+var require$$3 = require('net');
+var require$$4 = require('tls');
+var require$$5 = require('crypto');
+var require$$0$2 = require('stream');
+var require$$7 = require('url');
+var require$$0$1 = require('zlib');
+require('node:url');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
+var require$$1__default = /*#__PURE__*/_interopDefaultLegacy(require$$1);
+var require$$0__default$3 = /*#__PURE__*/_interopDefaultLegacy(require$$0$3);
+var require$$1__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$1$1);
+var require$$2__default = /*#__PURE__*/_interopDefaultLegacy(require$$2);
+var require$$3__default = /*#__PURE__*/_interopDefaultLegacy(require$$3);
+var require$$4__default = /*#__PURE__*/_interopDefaultLegacy(require$$4);
+var require$$5__default = /*#__PURE__*/_interopDefaultLegacy(require$$5);
+var require$$0__default$2 = /*#__PURE__*/_interopDefaultLegacy(require$$0$2);
+var require$$7__default = /*#__PURE__*/_interopDefaultLegacy(require$$7);
+var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
 
 // Integer Utility
 var UINT32_MAX = 4294967295;
@@ -2411,8 +2429,8 @@ function requireNode () {
 	if (hasRequiredNode) return node$1.exports;
 	hasRequiredNode = 1;
 	(function (module, exports) {
-		const tty = require$$0;
-		const util = require$$1;
+		const tty = require$$0__default["default"];
+		const util = require$$1__default["default"];
 
 		/**
 		 * This is the Node.js implementation of `debug()`.
@@ -3229,7 +3247,7 @@ class Limiter$1 {
 
 var limiter = Limiter$1;
 
-const zlib = require$$0$1;
+const zlib = require$$0__default$1["default"];
 
 const bufferUtil = bufferUtil$1.exports;
 const Limiter = limiter;
@@ -3867,7 +3885,7 @@ if (!process.env.WS_NO_UTF_8_VALIDATE) {
   }
 }
 
-const { Writable } = require$$0$2;
+const { Writable } = require$$0__default$2["default"];
 
 const PerMessageDeflate$3 = permessageDeflate;
 const {
@@ -4485,7 +4503,7 @@ function error(ErrorCtor, message, prefix, statusCode, errorCode) {
 }
 
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^net|tls$" }] */
-const { randomFillSync } = require$$5;
+const { randomFillSync } = require$$5__default["default"];
 
 const PerMessageDeflate$2 = permessageDeflate;
 const { EMPTY_BUFFER: EMPTY_BUFFER$1 } = constants;
@@ -5427,13 +5445,13 @@ var extension$1 = { format: format$1, parse: parse$2 };
 
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^Readable$" }] */
 
-const EventEmitter$1 = require$$0$3;
-const https = require$$1$1;
-const http$1 = require$$2;
-const net = require$$3;
-const tls = require$$4;
-const { randomBytes, createHash: createHash$1 } = require$$5;
-const { URL: URL$1 } = require$$7;
+const EventEmitter$1 = require$$0__default$3["default"];
+const https = require$$1__default$1["default"];
+const http$1 = require$$2__default["default"];
+const net = require$$3__default["default"];
+const tls = require$$4__default["default"];
+const { randomBytes, createHash: createHash$1 } = require$$5__default["default"];
+const { URL: URL$1 } = require$$7__default["default"];
 
 const PerMessageDeflate$1 = permessageDeflate;
 const Receiver = receiver;
@@ -6728,7 +6746,7 @@ function socketOnError$1() {
   }
 }
 
-const { Duplex } = require$$0$2;
+const { Duplex } = require$$0__default$2["default"];
 
 /**
  * Emits the `'close'` event on a stream.
@@ -6949,9 +6967,9 @@ var subprotocol$1 = { parse };
 
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^net|tls|https$" }] */
 
-const EventEmitter = require$$0$3;
-const http = require$$2;
-const { createHash } = require$$5;
+const EventEmitter = require$$0__default$3["default"];
+const http = require$$2__default["default"];
+const { createHash } = require$$5__default["default"];
 
 const extension = extension$1;
 const PerMessageDeflate = permessageDeflate;
@@ -9402,4 +9420,6 @@ function call(functionName, requestField) {
         });
 }
 
-export { call, getState, init };
+exports.call = call;
+exports.getState = getState;
+exports.init = init;
