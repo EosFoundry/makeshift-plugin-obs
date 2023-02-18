@@ -1,3 +1,5 @@
+uses the [OBS Websocket Protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md)
+
 Overarching goals:
 
 - implement them with more efficiency (devs)

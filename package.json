@@ -13,6 +13,6 @@
     "obs-websocket-js": "^5.0.2"
   },
   "devDependencies": {
-    "@eos-makeshift/vacuum-packer": "^1.0.1"
+    "@eos-makeshift/vacuum-packer": "^2.0.1"
   }
 }

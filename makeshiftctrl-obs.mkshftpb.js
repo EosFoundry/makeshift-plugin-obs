@@ -1681,9 +1681,17 @@ function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-var src = {exports: {}};
+var srcExports = {};
+var src = {
+  get exports(){ return srcExports; },
+  set exports(v){ srcExports = v; },
+};
 
-var browser = {exports: {}};
+var browserExports = {};
+var browser = {
+  get exports(){ return browserExports; },
+  set exports(v){ browserExports = v; },
+};
 
 /**
  * Helpers.
@@ -2143,7 +2151,7 @@ function requireCommon () {
 var hasRequiredBrowser;
 
 function requireBrowser () {
-	if (hasRequiredBrowser) return browser.exports;
+	if (hasRequiredBrowser) return browserExports;
 	hasRequiredBrowser = 1;
 	(function (module, exports) {
 		/**
@@ -2413,11 +2421,15 @@ function requireBrowser () {
 				return '[UnexpectedJSONParseError]: ' + error.message;
 			}
 		};
-} (browser, browser.exports));
-	return browser.exports;
+} (browser, browserExports));
+	return browserExports;
 }
 
-var node$1 = {exports: {}};
+var nodeExports$1 = {};
+var node$1 = {
+  get exports(){ return nodeExports$1; },
+  set exports(v){ nodeExports$1 = v; },
+};
 
 /**
  * Module dependencies.
@@ -2426,7 +2438,7 @@ var node$1 = {exports: {}};
 var hasRequiredNode;
 
 function requireNode () {
-	if (hasRequiredNode) return node$1.exports;
+	if (hasRequiredNode) return nodeExports$1;
 	hasRequiredNode = 1;
 	(function (module, exports) {
 		const tty = require$$0__default["default"];
@@ -2688,8 +2700,8 @@ function requireNode () {
 			this.inspectOpts.colors = this.useColors;
 			return util.inspect(v, this.inspectOpts);
 		};
-} (node$1, node$1.exports));
-	return node$1.exports;
+} (node$1, nodeExports$1));
+	return nodeExports$1;
 }
 
 /**
@@ -2705,9 +2717,13 @@ function requireNode () {
 	}
 } (src));
 
-var createDebug = /*@__PURE__*/getDefaultExportFromCjs(src.exports);
+var createDebug = /*@__PURE__*/getDefaultExportFromCjs(srcExports);
 
-var eventemitter3 = {exports: {}};
+var eventemitter3Exports = {};
+var eventemitter3 = {
+  get exports(){ return eventemitter3Exports; },
+  set exports(v){ eventemitter3Exports = v; },
+};
 
 (function (module) {
 
@@ -3047,11 +3063,19 @@ var eventemitter3 = {exports: {}};
 	}
 } (eventemitter3));
 
-var EventEmitter$2 = eventemitter3.exports;
+var EventEmitter$2 = eventemitter3Exports;
 
-var node = {exports: {}};
+var nodeExports = {};
+var node = {
+  get exports(){ return nodeExports; },
+  set exports(v){ nodeExports = v; },
+};
 
-var bufferUtil$1 = {exports: {}};
+var bufferUtilExports = {};
+var bufferUtil$1 = {
+  get exports(){ return bufferUtilExports; },
+  set exports(v){ bufferUtilExports = v; },
+};
 
 var constants = {
   BINARY_TYPES: ['nodebuffer', 'arraybuffer', 'fragments'],
@@ -3179,12 +3203,12 @@ if (!process.env.WS_NO_BUFFER_UTIL) {
   try {
     const bufferUtil = require('bufferutil');
 
-    mask = bufferUtil$1.exports.mask = function (source, mask, output, offset, length) {
+    mask = bufferUtilExports.mask = function (source, mask, output, offset, length) {
       if (length < 48) _mask(source, mask, output, offset, length);
       else bufferUtil.mask(source, mask, output, offset, length);
     };
 
-    unmask$1 = bufferUtil$1.exports.unmask = function (buffer, mask) {
+    unmask$1 = bufferUtilExports.unmask = function (buffer, mask) {
       if (buffer.length < 32) _unmask(buffer, mask);
       else bufferUtil.unmask(buffer, mask);
     };
@@ -3249,7 +3273,7 @@ var limiter = Limiter$1;
 
 const zlib = require$$0__default$1["default"];
 
-const bufferUtil = bufferUtil$1.exports;
+const bufferUtil = bufferUtilExports;
 const Limiter = limiter;
 const { kStatusCode: kStatusCode$2 } = constants;
 
@@ -3757,7 +3781,11 @@ function inflateOnError(err) {
   this[kCallback](err);
 }
 
-var validation = {exports: {}};
+var validationExports = {};
+var validation = {
+  get exports(){ return validationExports; },
+  set exports(v){ validationExports = v; },
+};
 
 var isValidUTF8_1;
 
@@ -3877,7 +3905,7 @@ if (!process.env.WS_NO_UTF_8_VALIDATE) {
   try {
     const isValidUTF8 = require('utf-8-validate');
 
-    isValidUTF8_1 = validation.exports.isValidUTF8 = function (buf) {
+    isValidUTF8_1 = validationExports.isValidUTF8 = function (buf) {
       return buf.length < 150 ? _isValidUTF8(buf) : isValidUTF8(buf);
     };
   } catch (e) {
@@ -3894,8 +3922,8 @@ const {
   kStatusCode: kStatusCode$1,
   kWebSocket: kWebSocket$2
 } = constants;
-const { concat, toArrayBuffer, unmask } = bufferUtil$1.exports;
-const { isValidStatusCode: isValidStatusCode$1, isValidUTF8 } = validation.exports;
+const { concat, toArrayBuffer, unmask } = bufferUtilExports;
+const { isValidStatusCode: isValidStatusCode$1, isValidUTF8 } = validationExports;
 
 const GET_INFO = 0;
 const GET_PAYLOAD_LENGTH_16 = 1;
@@ -4507,8 +4535,8 @@ const { randomFillSync } = require$$5__default["default"];
 
 const PerMessageDeflate$2 = permessageDeflate;
 const { EMPTY_BUFFER: EMPTY_BUFFER$1 } = constants;
-const { isValidStatusCode } = validation.exports;
-const { mask: applyMask, toBuffer: toBuffer$1 } = bufferUtil$1.exports;
+const { isValidStatusCode } = validationExports;
+const { mask: applyMask, toBuffer: toBuffer$1 } = bufferUtilExports;
 
 const kByteLength = Symbol('kByteLength');
 const maskBuffer = Buffer.alloc(4);
@@ -5154,7 +5182,7 @@ const EventTarget = {
    * Register an event listener.
    *
    * @param {String} type A string representing the event type to listen for
-   * @param {Function} listener The listener to add
+   * @param {(Function|Object)} handler The listener to add
    * @param {Object} [options] An options object specifies characteristics about
    *     the event listener
    * @param {Boolean} [options.once=false] A `Boolean` indicating that the
@@ -5162,7 +5190,17 @@ const EventTarget = {
    *     the listener would be automatically removed when invoked.
    * @public
    */
-  addEventListener(type, listener, options = {}) {
+  addEventListener(type, handler, options = {}) {
+    for (const listener of this.listeners(type)) {
+      if (
+        !options[kForOnEventAttribute$1] &&
+        listener[kListener$1] === handler &&
+        !listener[kForOnEventAttribute$1]
+      ) {
+        return;
+      }
+    }
+
     let wrapper;
 
     if (type === 'message') {
@@ -5172,7 +5210,7 @@ const EventTarget = {
         });
 
         event[kTarget] = this;
-        listener.call(this, event);
+        callListener(handler, this, event);
       };
     } else if (type === 'close') {
       wrapper = function onClose(code, message) {
@@ -5183,7 +5221,7 @@ const EventTarget = {
         });
 
         event[kTarget] = this;
-        listener.call(this, event);
+        callListener(handler, this, event);
       };
     } else if (type === 'error') {
       wrapper = function onError(error) {
@@ -5193,21 +5231,21 @@ const EventTarget = {
         });
 
         event[kTarget] = this;
-        listener.call(this, event);
+        callListener(handler, this, event);
       };
     } else if (type === 'open') {
       wrapper = function onOpen() {
         const event = new Event('open');
 
         event[kTarget] = this;
-        listener.call(this, event);
+        callListener(handler, this, event);
       };
     } else {
       return;
     }
 
     wrapper[kForOnEventAttribute$1] = !!options[kForOnEventAttribute$1];
-    wrapper[kListener$1] = listener;
+    wrapper[kListener$1] = handler;
 
     if (options.once) {
       this.once(type, wrapper);
@@ -5220,7 +5258,7 @@ const EventTarget = {
    * Remove an event listener.
    *
    * @param {String} type A string representing the event type to remove
-   * @param {Function} handler The listener to remove
+   * @param {(Function|Object)} handler The listener to remove
    * @public
    */
   removeEventListener(type, handler) {
@@ -5241,7 +5279,23 @@ var eventTarget = {
   MessageEvent
 };
 
-const { tokenChars: tokenChars$1 } = validation.exports;
+/**
+ * Call an event listener
+ *
+ * @param {(Function|Object)} listener The listener to call
+ * @param {*} thisArg The value to use as `this`` when calling the listener
+ * @param {Event} event The event to pass to the listener
+ * @private
+ */
+function callListener(listener, thisArg, event) {
+  if (typeof listener === 'object' && listener.handleEvent) {
+    listener.handleEvent.call(listener, event);
+  } else {
+    listener.call(thisArg, event);
+  }
+}
+
+const { tokenChars: tokenChars$1 } = validationExports;
 
 /**
  * Adds an offer to the map of extension offers or a parameter to the map of
@@ -5470,7 +5524,7 @@ const {
   EventTarget: { addEventListener, removeEventListener }
 } = eventTarget;
 const { format, parse: parse$1 } = extension$1;
-const { toBuffer } = bufferUtil$1.exports;
+const { toBuffer } = bufferUtilExports;
 
 const closeTimeout = 30 * 1000;
 const kAborted = Symbol('kAborted');
@@ -6904,7 +6958,7 @@ function createWebSocketStream(ws, options) {
 
 var stream = createWebSocketStream;
 
-const { tokenChars } = validation.exports;
+const { tokenChars } = validationExports;
 
 /**
  * Parses the `Sec-WebSocket-Protocol` header into a set of subprotocol names.
@@ -7513,20 +7567,28 @@ var ws = WebSocket;
 	module.exports = ws;
 } (node));
 
-var WebSocketIpml = /*@__PURE__*/getDefaultExportFromCjs(node.exports);
+var WebSocketIpml = /*@__PURE__*/getDefaultExportFromCjs(nodeExports);
 
-var sha256$1 = {exports: {}};
+var sha256Exports = {};
+var sha256$1 = {
+  get exports(){ return sha256Exports; },
+  set exports(v){ sha256Exports = v; },
+};
 
 function commonjsRequire(path) {
 	throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
 }
 
-var core = {exports: {}};
+var coreExports = {};
+var core = {
+  get exports(){ return coreExports; },
+  set exports(v){ coreExports = v; },
+};
 
 var hasRequiredCore;
 
 function requireCore () {
-	if (hasRequiredCore) return core.exports;
+	if (hasRequiredCore) return coreExports;
 	hasRequiredCore = 1;
 	(function (module, exports) {
 (function (root, factory) {
@@ -8329,7 +8391,7 @@ function requireCore () {
 
 		}));
 } (core));
-	return core.exports;
+	return coreExports;
 }
 
 (function (module, exports) {
@@ -8526,9 +8588,13 @@ function requireCore () {
 	}));
 } (sha256$1));
 
-var sha256 = sha256$1.exports;
+var sha256 = sha256Exports;
 
-var encBase64 = {exports: {}};
+var encBase64Exports = {};
+var encBase64 = {
+  get exports(){ return encBase64Exports; },
+  set exports(v){ encBase64Exports = v; },
+};
 
 (function (module, exports) {
 (function (root, factory) {
@@ -8661,7 +8727,7 @@ var encBase64 = {exports: {}};
 	}));
 } (encBase64));
 
-var Base64 = encBase64.exports;
+var Base64 = encBase64Exports;
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -9370,7 +9436,7 @@ obs.on('error', err => {
 
 
 /**
- * Spins up the 
+ * TODO: document this properly
  * @param {*} password - password field
  * @param {*} address - IP address that OBS is listening on
  * @param {*} port - the port
@@ -9407,6 +9473,13 @@ function getState() {
 }
 
 /**
+ * testing function that logs a string
+ */
+function test(){
+    console.log('testing plugin-obs');
+}
+
+/**
  * Directly calls the obs websocket interface
  * @param {string} functionName 
  * @param {object} requestField 
@@ -9423,3 +9496,4 @@ function call(functionName, requestField) {
 exports.call = call;
 exports.getState = getState;
 exports.init = init;
+exports.test = test;

@@ -11,7 +11,7 @@
         {},
         {}
       ],
-      "docString": "Spins up the \n@param {*} password - password field\n@param {*} address - IP address that OBS is listening on\n@param {*} port - the port",
+      "docString": "TODO: document this properly\n@param {*} password - password field\n@param {*} address - IP address that OBS is listening on\n@param {*} port - the port",
       "async": true,
       "generator": false
     },
@@ -19,6 +19,13 @@
       "identifier": "getState",
       "params": [],
       "docString": "gets all the \n@returns pluginData",
+      "async": false,
+      "generator": false
+    },
+    {
+      "identifier": "test",
+      "params": [],
+      "docString": "testing function that logs a string",
       "async": false,
       "generator": false
     },
