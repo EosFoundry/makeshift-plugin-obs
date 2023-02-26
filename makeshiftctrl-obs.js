@@ -10,7 +10,7 @@ export const pluginData = {
   webSocketAddress: '',
   obsWebSocketVersion: '',
   connected: false,
-  sceneNames:[]
+  scenes: []
 }
 
 obs.on('Hello', () => {
@@ -33,8 +33,21 @@ obs.on('error', err => {
   sendError('Socket error:', err);
 });
 
-obs.on('SceneCreated', (sceneName, isGroup) => {
-  
+obs.on('SceneCreated', (data) => {
+  let newSceneIndex = pluginData.scenes[pluginData.scenes.length - 1].sceneIndex
+  newSceneIndex++
+  pluginData.scenes.push({
+    sceneIndex: newSceneIndex,
+    sceneName: data.sceneName
+  })
+  console.log('Scene Created: ')
+  console.log(pluginData.scenes)
+})
+
+obs.on('SceneRemoved', (data) => {
+  pluginData.scenes = pluginData.scenes.filter((val) => val.sceneName !== data.sceneName)
+  console.log('Scene Removed: ')
+  console.log(pluginData.scenes)
 })
 
 
@@ -55,7 +68,8 @@ export async function init(password, address, port) {
     pluginData.obsWebSocketVersion = obsWebSocketVersion
     pluginData.connected = true;
     sendLog(`Connected to server ${pluginData.obsWebSocketVersion}`)
-    obs.call('GetSceneList')
+    const ret = await obs.call('GetSceneList')
+    pluginData.scenes = ret.scenes
   } catch (error) {
     sendError('Failed to connect', error.code, error.message)
   }
@@ -74,8 +88,16 @@ export function getState() {
  * - switch scenes
  * - adding captures
  */
-export function changeScene(sceneName) {
-  
+export function changeScene(newSceneName) {
+  obs.call('SetCurrentProgramScene', {
+    sceneName: newSceneName
+  })
+}
+
+export function createScene(newSceneName) {
+  obs.call('CreateScene', {
+    sceneName: newSceneName
+  })
 }
 
 export function toggleSource() {
@@ -87,6 +109,7 @@ export function toggleSource() {
  */
 export function test() {
   console.log('testing plugin-obs')
+  console.log(pluginData.scenes)
 }
 
 /**
