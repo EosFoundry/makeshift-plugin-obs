@@ -10,15 +10,15 @@ export const pluginData = {
   webSocketAddress: '',
   obsWebSocketVersion: '',
   connected: false,
-  scenes: []
+  scenes: [],
 }
 
 obs.on('Hello', () => {
-  console.log('Got hello.')
+  console.log('Got hello.');
 })
 
 obs.on('Identified', () => {
-  console.log('Identified.')
+  console.log('Identified.');
 })
 
 obs.on('ConnectionOpened', () => {
@@ -63,6 +63,7 @@ export async function init(password, address, port) {
 
   const osbUrl = new URL(stringUrl)
   console.log('obsurl: ' + osbUrl)
+
   try { // here's an inline comment
     const { obsWebSocketVersion, } = await obs.connect(osbUrl, password, { rpcVersion: 1 });
     pluginData.obsWebSocketVersion = obsWebSocketVersion
