@@ -50,6 +50,28 @@ obs.on('SceneRemoved', (data) => {
   console.log(pluginData.scenes)
 })
 
+obs.on('SceneNameChanged', (data) => {
+  console.log('Scene Name Changed with data object: ')
+  console.log(data)
+  // data: { oldSceneName: <string> , sceneName: <string> }
+  // sceneObject: { sceneIndex: <string> , sceneName: <string> }
+  let matchedIndex = pluginData.scenes.findIndex((sceneObject) => {
+    console.log(`array element AKA sceneObject:`)
+    console.log(sceneObject)
+    console.log(`Is current element AKA sceneObject a match: `)
+    let isMatch = (sceneObject.sceneName === data.oldSceneName)
+    console.log(isMatch)
+    // return false
+    return isMatch
+  })
+  
+  console.log(`found matched index:`)
+  console.log(matchedIndex)
+  console.log(`Array element with index ${matchedIndex}`)
+  console.log(pluginData.scenes[matchedIndex])
+})
+
+
 
 /**
  * TODO: document this properly
@@ -71,6 +93,8 @@ export async function init(password, address, port) {
     sendLog(`Connected to server ${pluginData.obsWebSocketVersion}`)
     const ret = await obs.call('GetSceneList')
     pluginData.scenes = ret.scenes
+    console.log("Scenes: ")
+    console.log(pluginData.scenes)
   } catch (error) {
     sendError('Failed to connect', error.code, error.message)
   }
