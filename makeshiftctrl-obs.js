@@ -125,6 +125,10 @@ export function createScene(newSceneName) {
   })
 }
 
+export function getSceneList() {
+  return pluginData.scenes
+}
+
 export function toggleSource() {
 
 }
