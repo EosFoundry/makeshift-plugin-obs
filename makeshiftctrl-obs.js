@@ -11,6 +11,8 @@ export const pluginData = {
   obsWebSocketVersion: '',
   connected: false,
   scenes: [],
+  currentPreviewScene: { sceneIndex: 0, sceneName: '' },
+  currentProgramScene: { sceneIndex: 0, sceneName: '' },
 }
 
 obs.on('Hello', () => {
@@ -50,6 +52,7 @@ obs.on('SceneRemoved', (data) => {
   console.log(pluginData.scenes)
 })
 
+
 obs.on('SceneNameChanged', (data) => {
   console.log('Scene Name Changed with data object: ')
   console.log(data)
@@ -64,13 +67,45 @@ obs.on('SceneNameChanged', (data) => {
     // return false
     return isMatch
   })
-  
+
   console.log(`found matched index:`)
   console.log(matchedIndex)
   console.log(`Array element with index ${matchedIndex}`)
   console.log(pluginData.scenes[matchedIndex])
 })
 
+/**
+ * 1a) Impement event listeners for CurrentPreview and CurrentProgram scene changes
+ * 1b) save the current preview scene and current program scene in pluginData
+ * 1c) Explain why you chose the data structure you did for storing the current preview and current program scene
+ */
+obs.on('CurrentPreviewSceneChanged', (data) => {
+  // console.log(`CurrentPreviewSceneChanged with data object: `)
+  // console.log(data)
+  pluginData.currentPreviewScene = assignIndex(data)
+})
+
+obs.on('CurrentProgramSceneChanged', (data) => {
+  pluginData.currentProgramScene = assignIndex(data)
+})
+
+function assignIndex(data) {
+  let newSceneObject = {
+    sceneIndex: -1,
+    sceneName: data.sceneName
+  }
+
+  for (i = 0; i < pluginData.scenes.length; i++) {
+    if (pluginData.scenes[i].sceneName === data.sceneName) {
+      newSceneObject.sceneIndex = pluginData.scenes[i].sceneIndex
+      break
+    }
+  }
+
+  console.log(`Created new scene object: `)
+  console.log(newSceneObject)
+  return newSceneObject
+}
 
 
 /**
@@ -89,12 +124,11 @@ export async function init(password, address, port) {
   try { // here's an inline comment
     const { obsWebSocketVersion, } = await obs.connect(osbUrl, password, { rpcVersion: 1 });
     pluginData.obsWebSocketVersion = obsWebSocketVersion
-    pluginData.connected = true;
-    sendLog(`Connected to server ${pluginData.obsWebSocketVersion}`)
+    pluginData.connected = true
+    sendLog(`Connected to server with websocket version: ${pluginData.obsWebSocketVersion}`)
     const ret = await obs.call('GetSceneList')
     pluginData.scenes = ret.scenes
-    console.log("Scenes: ")
-    console.log(pluginData.scenes)
+    sendLog(`Scenes: ${pluginData.scenes}`)
   } catch (error) {
     sendError('Failed to connect', error.code, error.message)
   }
@@ -132,6 +166,15 @@ export function getSceneList() {
 export function toggleSource() {
 
 }
+
+export function addSource() {
+
+}
+
+export function removeSource() {
+
+}
+
 
 /**
  * testing function that logs a string
